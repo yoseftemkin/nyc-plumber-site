@@ -1,305 +1,310 @@
-Got it! You want **one single HTML file** that contains **all the pages together**, each page on its own "section" or "div," and the navigation switches between them **without loading new pages** — so basically a **single-page application (SPA)** but all in one HTML file.
-
----
-
-### What this means:
-
-* One `.html` file only.
-* Each “page” is a `<section>` or `<div>` with a unique id.
-* Navigation buttons switch which section is visible, hiding the others.
-* No page reloads, everything is embedded.
-* All CSS and JS included inside this file.
-* Smooth user experience like real multi-page site but technically one page.
-
----
-
-### I’ll prepare a minimal example for you with these 5 pages inside one HTML:
-
-* Home
-* Businesses
-* Plans
-* Testimonials
-* Contact
-
----
-
-### Here’s the full single HTML file with embedded CSS + JS + navigation:
-
-```html
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NY Plumbing Network - Single Page</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
-  <script src="https://kit.fontawesome.com/a2e0e6e6c1.js" crossorigin="anonymous"></script>
+  <title>NY Plumbing Network</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
   <style>
-    /* Reset and base */
-    * { margin:0; padding:0; box-sizing: border-box;}
+    /* Reset */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
     body {
-      font-family: 'Inter', sans-serif;
-      background:#fefefe;
-      color:#1a1a1a;
-      line-height:1.6;
+      margin: 0; font-family: 'Inter', sans-serif; background: #fafafa; color: #222;
+      line-height: 1.6; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
     }
-    a {
-      color:#0077cc;
-      text-decoration:none;
-      cursor:pointer;
-    }
-    a:hover { color:#004a99; }
+
+    /* Header */
     header {
-      background:#004a99;
-      color:#fff;
-      padding:15px 40px;
-      position: sticky;
-      top:0;
-      display:flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow:0 4px 10px rgba(0,0,0,0.1);
+      position: fixed; top: 0; left: 0; right: 0;
+      background: #002244;
+      color: white;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem;
+      box-shadow: 0 2px 8px rgb(0 0 0 / 0.15);
       z-index: 1000;
     }
-    header h2 {
-      font-weight: 800;
-      font-size: 1.6rem;
-      letter-spacing: 1px;
+    header h1 {
+      font-weight: 700;
+      font-size: 1.5rem;
+      letter-spacing: 0.08em;
+      user-select: none;
+    }
+    nav {
+      display: flex;
+      gap: 1.25rem;
     }
     nav a {
-      margin-left: 20px;
+      color: #cbd5e1;
+      text-decoration: none;
       font-weight: 600;
       font-size: 1rem;
-      transition: color 0.3s ease;
+      padding: 0.5rem 0.3rem;
+      border-bottom: 3px solid transparent;
+      transition: border-color 0.3s, color 0.3s;
+      cursor: pointer;
     }
+    nav a:hover,
     nav a.active {
-      color: #ffb400;
-      font-weight: 700;
-      border-bottom: 2px solid #ffb400;
-      padding-bottom: 3px;
+      color: #ffbb00;
+      border-bottom-color: #ffbb00;
     }
-    main > section {
+
+    /* Main content */
+    main {
+      max-width: 960px;
+      margin: 100px auto 60px;
+      padding: 0 1rem;
+      min-height: 60vh;
+      position: relative;
+    }
+
+    /* Sections: Only one visible at a time */
+    section.page {
       display: none;
-      padding: 60px 20px;
-      max-width: 1100px;
-      margin: 0 auto;
-      min-height: 70vh;
+      opacity: 0;
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      transition: opacity 0.4s ease;
+      overflow-y: auto;
+      padding-bottom: 2rem;
     }
-    main > section.active {
+    section.page.active {
       display: block;
+      opacity: 1;
+      position: static;
+      min-height: auto;
     }
-    /* Hero */
-    .hero {
-      background: linear-gradient(135deg, #0077cc 0%, #004a99 100%);
-      color: white;
-      padding: 80px 20px;
+
+    /* --- Home Section --- */
+    #home {
       text-align: center;
-      border-radius: 12px;
-      margin-bottom: 60px;
     }
-    .hero svg {
-      width: 80px;
-      height: 80px;
-      margin-bottom: 20px;
-      fill: white;
-      opacity: 0.7;
+    #home h2 {
+      font-size: 2.75rem;
+      margin-bottom: 0.5rem;
+      color: #002244;
+      font-weight: 700;
     }
-    .hero h1 {
-      font-size: 2.8rem;
-      margin-bottom: 15px;
-      font-weight: 800;
-    }
-    .hero p {
-      font-size: 1.3rem;
-      margin-bottom: 30px;
-      font-weight: 600;
-      max-width: 400px;
+    #home p {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      color: #444;
+      max-width: 550px;
       margin-left: auto;
       margin-right: auto;
     }
-    .btn-primary {
-      background-color: #ffb400;
-      color: #004a99;
+    #home .btn-primary {
+      background-color: #ffbb00;
+      color: #002244;
       font-weight: 700;
-      padding: 15px 40px;
+      border: none;
       border-radius: 30px;
-      display: inline-block;
-      transition: background-color 0.3s ease;
-      box-shadow: 0 5px 12px rgba(255,180,0,0.5);
+      padding: 0.75rem 2.5rem;
+      font-size: 1.1rem;
       cursor: pointer;
+      box-shadow: 0 6px 10px rgb(255 187 0 / 0.5);
+      transition: background-color 0.3s ease;
+      user-select: none;
     }
-    .btn-primary:hover {
-      background-color: #ffa200;
-      box-shadow: 0 6px 15px rgba(255,160,0,0.7);
+    #home .btn-primary:hover {
+      background-color: #e6a700;
+      box-shadow: 0 8px 18px rgb(230 167 0 / 0.7);
     }
-    /* Business Cards */
-    .business-grid {
+
+    /* --- Businesses Section --- */
+    #businesses {
       display: grid;
       grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-      gap: 30px;
+      gap: 1.5rem;
     }
     .business-card {
       background: white;
       border-radius: 12px;
-      padding: 30px 25px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.07);
-      text-align: center;
-      transition: transform 0.3s ease;
-      cursor: default;
-    }
-    .business-card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 12px 28px rgba(0,0,0,0.12);
-    }
-    .business-icon {
-      font-size: 3rem;
-      color: #0077cc;
-      margin-bottom: 15px;
-    }
-    .business-card strong {
-      font-size: 1.25rem;
-      display: block;
-      margin-bottom: 5px;
-      color: #003366;
-    }
-    /* Plans */
-    .plans-grid {
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      flex-wrap: wrap;
-    }
-    .plan {
-      background: white;
-      padding: 30px;
-      border-radius: 15px;
-      width: 280px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+      padding: 1.75rem 1.5rem;
       text-align: center;
       transition: box-shadow 0.3s ease;
       cursor: default;
+      user-select: none;
     }
-    .plan:hover {
-      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    .business-card:hover {
+      box-shadow: 0 12px 25px rgb(0 0 0 / 0.15);
     }
-    .plan h3 {
+    .business-icon {
+      font-size: 3rem;
+      color: #ffbb00;
+      margin-bottom: 0.75rem;
+    }
+    .business-name {
+      font-weight: 700;
+      font-size: 1.25rem;
+      color: #002244;
+      margin-bottom: 0.3rem;
+    }
+    .business-desc {
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    /* --- Plans Section --- */
+    #plans {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .plan-card {
+      background: white;
+      border-radius: 14px;
+      box-shadow: 0 6px 18px rgb(0 0 0 / 0.1);
+      flex: 1 1 280px;
+      max-width: 320px;
+      padding: 2rem 1.75rem;
+      text-align: center;
+      user-select: none;
+      transition: box-shadow 0.3s ease;
+      cursor: default;
+    }
+    .plan-card:hover {
+      box-shadow: 0 14px 30px rgb(0 0 0 / 0.15);
+    }
+    .plan-title {
       font-weight: 700;
       font-size: 1.5rem;
-      margin-bottom: 15px;
-      color: #004a99;
+      color: #002244;
+      margin-bottom: 0.6rem;
     }
-    .plan p.price {
-      font-size: 1.8rem;
+    .plan-price {
       font-weight: 800;
-      margin-bottom: 15px;
-      color: #ffb400;
+      font-size: 2rem;
+      color: #ffbb00;
+      margin-bottom: 1rem;
     }
-    .plan p.features {
+    .plan-features {
+      color: #555;
       font-weight: 600;
-      color: #333;
+      font-size: 1rem;
       line-height: 1.5;
+      white-space: pre-line;
     }
-    /* Testimonials */
-    .testimonials-grid {
+
+    /* --- Reviews Section --- */
+    #testimonials {
       display: grid;
       grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
-      gap: 30px;
+      gap: 1.5rem;
     }
-    .testimonial {
+    .testimonial-card {
       background: white;
-      padding: 25px 30px;
-      border-radius: 12px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      border-radius: 14px;
+      padding: 1.5rem 1.75rem;
+      box-shadow: 0 4px 16px rgb(0 0 0 / 0.08);
       font-style: italic;
       color: #444;
       position: relative;
-      min-height: 130px;
+      user-select: none;
     }
-    .testimonial:before {
+    .testimonial-card:before {
       content: "“";
-      font-size: 3.5rem;
+      font-size: 4rem;
+      color: #ffbb00;
       position: absolute;
-      top: 10px;
-      left: 15px;
-      color: #ffb400;
+      top: 0.25rem;
+      left: 0.75rem;
       opacity: 0.3;
       font-family: serif;
     }
-    .testimonial-footer {
-      margin-top: 15px;
+    .testimonial-author {
+      margin-top: 1.1rem;
       font-weight: 700;
-      color: #004a99;
-      font-style: normal;
+      color: #002244;
       text-align: right;
+      font-style: normal;
+      user-select: text;
     }
-    /* Contact */
-    form.contact-form {
-      max-width: 550px;
+
+    /* --- Contact Section --- */
+    #contact {
+      max-width: 480px;
       margin: 0 auto;
+      user-select: none;
+    }
+    #contact form {
       display: flex;
       flex-direction: column;
+      gap: 1rem;
     }
-    form.contact-form input,
-    form.contact-form textarea {
-      padding: 15px 18px;
-      margin-bottom: 20px;
-      border: 1px solid #ccc;
+    #contact label {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #222;
+      user-select: text;
+    }
+    #contact input,
+    #contact textarea {
+      padding: 0.75rem 1rem;
+      border: 1.5px solid #ccc;
       border-radius: 8px;
       font-size: 1rem;
-      resize: vertical;
       font-family: inherit;
+      transition: border-color 0.3s ease;
     }
-    form.contact-form button {
-      background: #0077cc;
-      color: white;
-      font-weight: 700;
+    #contact input:focus,
+    #contact textarea:focus {
+      border-color: #ffbb00;
+      outline: none;
+    }
+    #contact textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    #contact button {
+      background: #ffbb00;
       border: none;
-      border-radius: 30px;
-      padding: 15px;
+      color: #002244;
+      font-weight: 700;
+      padding: 0.85rem;
       font-size: 1.1rem;
+      border-radius: 30px;
       cursor: pointer;
       transition: background-color 0.3s ease;
+      user-select: none;
     }
-    form.contact-form button:hover {
-      background: #004a99;
+    #contact button:hover {
+      background: #e6a700;
     }
+
     /* Footer */
     footer {
-      background: #004a99;
-      color: white;
-      padding: 20px;
       text-align: center;
       font-weight: 600;
+      color: #666;
       font-size: 0.9rem;
-      margin-top: 60px;
+      padding: 1.5rem 1rem;
+      border-top: 1px solid #ddd;
+      user-select: none;
     }
-    @media (max-width: 600px) {
-      .hero h1 { font-size: 2rem; }
-      nav a { font-size: 0.9rem; margin-left: 10px; }
-      .plans-grid { flex-direction: column; align-items: center; }
+
+    /* Responsive tweaks */
+    @media (max-width: 480px) {
+      main {
+        margin: 90px 1rem 40px;
+      }
+      #plans {
+        flex-direction: column;
+        align-items: center;
+      }
+      nav {
+        gap: 1rem;
+      }
     }
   </style>
 </head>
 <body>
 
 <header>
-  <h2>NY Plumbing Network</h2>
+  <h1>NY Plumbing Network</h1>
   <nav>
-    <a href="#" data-page="home" class="active">Home</a>
-    <a href="#" data-page="businesses">Businesses</a>
-    <a href="#" data-page="plans">Plans</a>
-    <a href="#" data-page="testimonials">Reviews</a>
-    <a href="#" data-page="contact">Contact</a>
-  </nav>
-</header>
-
-<main>
-
-  <!-- Home Section -->
-  <section id="home" class="active">
-    <div class="hero" role="banner">
-      <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" style="margin:auto; display:block; max-width:80px; fill:#fff; opacity:0.7;">
-        <path d="M48 16v16a8 8 0 0 1-16 0V16h16zm-6 6h-4v10a4 4 0 0 0 8 0V22zM30 32a10 10 0 1 0 20 0v-8h4v8a14 14 0 1 1-28 0v-8h4zM18 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z" />
-      </svg>
-      <h1>
-```
+    <a href="#" data-page="home" class
