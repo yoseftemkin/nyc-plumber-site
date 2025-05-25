@@ -1,332 +1,261 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NY Plumbing Network</title>
-  <style>
-    /* Reset and base */
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-      background: #f9f9f9;
-      color: #222;
-      line-height: 1.6;
-    }
-    a {
-      text-decoration: none;
-      color: inherit;
-      cursor: pointer;
-    }
-    /* Header */
-    header {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      background-color: #003366;
-      color: white;
-      padding: 1rem 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-      z-index: 1000;
-    }
-    header h1 {
-      margin: 0;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      font-size: 1.5rem;
-      user-select: none;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>NY Plumbing Network - Single Page</title>
+<style>
+  /* Reset & base */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f4f8;
+    color: #222;
+    scroll-behavior: smooth;
+  }
+  /* Navbar */
+  header {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    background: #004080;
+    display: flex;
+    justify-content: center;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  nav {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    justify-content: center;
+    gap: 2.5rem;
+    padding: 1rem 0;
+  }
+  nav a {
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 0.5rem 0;
+    border-bottom: 3px solid transparent;
+    transition: border-color 0.3s, color 0.3s;
+  }
+  nav a:hover,
+  nav a.active {
+    color: #ffcc00;
+    border-color: #ffcc00;
+  }
+
+  /* Section general style */
+  section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 120px 20px 60px; /* top padding accounts for fixed header */
+  }
+  h1, h2, h3 {
+    color: #004080;
+    margin-top: 0;
+  }
+  p.lead {
+    font-size: 1.25rem;
+    line-height: 1.5;
+  }
+
+  /* Home */
+  #home h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+  #home button.cta {
+    background: #004080;
+    border: none;
+    color: white;
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-top: 2rem;
+    transition: background 0.3s ease;
+  }
+  #home button.cta:hover {
+    background: #003060;
+  }
+
+  /* Features */
+  .features {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    margin-top: 3rem;
+  }
+  .features div {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgb(0 0 0 / 0.1);
+  }
+  .features h3 {
+    margin-top: 0;
+  }
+
+  /* Services list */
+  ul.services-list {
+    list-style: none;
+    padding: 0;
+  }
+  ul.services-list li {
+    background: white;
+    margin-bottom: 1rem;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 3px 8px rgb(0 0 0 / 0.1);
+    font-size: 1.1rem;
+  }
+
+  /* Contact form */
+  form {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 0.1);
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  form label {
+    font-weight: 600;
+    margin-top: 1rem;
+    display: block;
+  }
+  form input, form textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-family: inherit;
+  }
+  form textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+  form button {
+    margin-top: 1.5rem;
+    background: #004080;
+    color: white;
+    border: none;
+    padding: 1rem;
+    font-size: 1.1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s ease;
+  }
+  form button:hover {
+    background: #003060;
+  }
+
+  /* Responsive for nav */
+  @media (max-width: 600px) {
     nav {
-      display: flex;
-      gap: 1.5rem;
-    }
-    nav a {
-      font-weight: 600;
-      font-size: 1rem;
-      padding-bottom: 3px;
-      border-bottom: 3px solid transparent;
-      color: #cbd5e1;
-      transition: border-color 0.3s ease, color 0.3s ease;
-      user-select: none;
-    }
-    nav a.active,
-    nav a:hover {
-      color: #ffbb00;
-      border-bottom-color: #ffbb00;
-    }
-    /* Main container */
-    main {
-      max-width: 900px;
-      margin: 100px auto 60px;
-      padding: 0 1rem;
-      min-height: 60vh;
-      position: relative;
-    }
-    /* Pages (all stacked, only one visible) */
-    section.page {
-      display: none;
-      opacity: 0;
-      transition: opacity 0.4s ease;
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      overflow-y: auto;
-      padding-bottom: 2rem;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.05);
-    }
-    section.page.active {
-      display: block;
-      opacity: 1;
-      position: static;
-      min-height: auto;
-    }
-    /* Headings */
-    h2 {
-      font-weight: 700;
-      color: #003366;
-      margin-bottom: 0.5rem;
-      font-size: 2rem;
-    }
-    p.lead {
-      font-size: 1.2rem;
-      color: #555;
-      margin-bottom: 2rem;
-      max-width: 700px;
-    }
-    /* Buttons */
-    .btn-primary {
-      background-color: #ffbb00;
-      border: none;
-      border-radius: 30px;
-      color: #003366;
-      font-weight: 700;
-      font-size: 1.1rem;
-      padding: 0.75rem 2.5rem;
-      cursor: pointer;
-      box-shadow: 0 6px 10px rgba(255,187,0,0.5);
-      transition: background-color 0.3s ease;
-      user-select: none;
-    }
-    .btn-primary:hover {
-      background-color: #e6a700;
-      box-shadow: 0 8px 18px rgba(230,167,0,0.7);
-    }
-    /* Businesses grid */
-    #businesses {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-    .business-card {
-      background: #fefefe;
-      border-radius: 12px;
-      padding: 1.75rem 1.5rem;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      transition: box-shadow 0.3s ease;
-      user-select: none;
-    }
-    .business-card:hover {
-      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
-    }
-    .business-name {
-      font-weight: 700;
-      color: #003366;
-      font-size: 1.25rem;
-      margin-bottom: 0.5rem;
-    }
-    .business-desc {
-      color: #555;
-      font-size: 1rem;
-      line-height: 1.4;
-    }
-    /* Plans */
-    #plans {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      justify-content: center;
-    }
-    .plan-card {
-      background: #fff;
-      border-radius: 14px;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
-      flex: 1 1 280px;
-      max-width: 320px;
-      padding: 2rem 1.75rem;
-      text-align: center;
-      user-select: none;
-      transition: box-shadow 0.3s ease;
-    }
-    .plan-card:hover {
-      box-shadow: 0 14px 30px rgba(0,0,0,0.15);
-    }
-    .plan-title {
-      font-weight: 700;
-      font-size: 1.5rem;
-      color: #003366;
-      margin-bottom: 0.5rem;
-    }
-    .plan-price {
-      font-weight: 800;
-      font-size: 2rem;
-      color: #ffbb00;
-      margin-bottom: 1rem;
-    }
-    .plan-features {
-      color: #555;
-      font-weight: 600;
-      font-size: 1rem;
-      white-space: pre-line;
-      line-height: 1.5;
-    }
-    /* Testimonials */
-    #testimonials {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
-    }
-    .testimonial-card {
-      background: #fff;
-      border-radius: 14px;
-      padding: 1.5rem 1.75rem;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-      font-style: italic;
-      color: #444;
-      position: relative;
-      user-select: none;
-    }
-    .testimonial-card:before {
-      content: "“";
-      font-size: 4rem;
-      color: #ffbb00;
-      position: absolute;
-      top: 0.25rem;
-      left: 0.75rem;
-      opacity: 0.3;
-      font-family: serif;
-    }
-    .testimonial-author {
-      margin-top: 1.1rem;
-      font-weight: 700;
-      color: #003366;
-      text-align: right;
-      font-style: normal;
-      user-select: text;
-    }
-    /* Contact */
-    #contact {
-      max-width: 480px;
-      margin: 0 auto;
-      user-select: none;
-    }
-    #contact form {
-      display: flex;
-      flex-direction: column;
       gap: 1rem;
+      padding: 1rem;
     }
-    #contact label {
-      font-weight: 600;
-      font-size: 1rem;
-      color: #222;
-      user-select: text;
-    }
-    #contact input,
-    #contact textarea {
-      padding: 0.75rem 1rem;
-      border: 1.5px solid #ccc;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-family: inherit;
-      transition: border-color 0.3s ease;
-    }
-    #contact input:focus,
-    #contact textarea:focus {
-      border-color: #ffbb00;
-      outline: none;
-    }
-    #contact textarea {
-      resize: vertical;
-      min-height: 100px;
-    }
-    #contact button {
-      background: #ffbb00;
-      border: none;
-      color: #003366;
-      font-weight: 700;
-      padding: 0.85rem;
-      font-size: 1.1rem;
-      border-radius: 30px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      user-select: none;
-    }
-    #contact button:hover {
-      background: #e6a700;
-    }
-    /* Footer */
-    footer {
-      text-align: center;
-      font-weight: 600;
-      color: #666;
-      font-size: 0.9rem;
-      padding: 1.5rem 1rem;
-      border-top: 1px solid #ddd;
-      user-select: none;
-    }
-    /* Responsive */
-    @media (max-width: 480px) {
-      main {
-        margin: 90px 1rem 40px;
-      }
-      nav {
-        gap: 1rem;
-      }
-      #plans {
-        flex-direction: column;
-        align-items: center;
-      }
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
-  <header>
-    <h1>NY Plumbing Network</h1>
-    <nav>
-      <a href="#" class="active" data-page="home">Home</a>
-      <a href="#" data-page="businesses">Businesses</a>
-      <a href="#" data-page="plans">Plans</a>
-      <a href="#" data-page="testimonials">Reviews</a>
-      <a href="#" data-page="contact">Contact</a>
-    </nav>
-  </header>
 
-  <main>
-    <!-- Home -->
-    <section id="home" class="page active" aria-label="Home page">
-      <h2>Welcome to NY Plumbing Network</h2>
-      <p class="lead">Connecting you to the best plumbers in New York. Reliable service, fast response, and quality workmanship.</p>
-      <button class="btn-primary" onclick="navigateTo('contact')">Get in Touch</button>
-    </section>
+<header>
+  <nav>
+    <a href="#home" class="active">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
 
-    <!-- Businesses -->
-    <section id="businesses" class="page" aria-label="Businesses page">
-      <h2>Our Trusted Businesses</h2>
-      <div>
-        <div id="businesses" >
-          <div class="business-card">
-            <div class="business-name">Reliable Plumbing Co.</div>
-            <div class="business-desc">24/7 emergency service, licensed and insured, serving NYC for over 20 years.</div>
-          </div>
-          <div class="business-card">
-            <div class="business-name">QuickFix Plumbing</div>
-            <div class="business-desc">Fast response times, affordable rates, and top-quality repairs.</div>
-          </div>
-          <div class="business-card">
-            <div
+<section id="home">
+  <h1>Welcome to NY Plumbing Network</h1>
+  <p class="lead">Connecting the best plumbing experts in New York to provide fast, reliable, and affordable service for your home or business.</p>
+  <button class="cta" onclick="document.getElementById('services').scrollIntoView({behavior: 'smooth'})">Explore Our Services</button>
+
+  <div class="features">
+    <div>
+      <h3>Trusted Professionals</h3>
+      <p>Our network includes licensed plumbers with years of experience.</p>
+    </div>
+    <div>
+      <h3>24/7 Emergency Service</h3>
+      <p>We’re here whenever you need us, day or night.</p>
+    </div>
+    <div>
+      <h3>Affordable Pricing</h3>
+      <p>Transparent, competitive pricing with no hidden fees.</p>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <h2>About NY Plumbing Network</h2>
+  <p>NY Plumbing Network was founded to bring together the best plumbing professionals across New York City and beyond. We are committed to quality, reliability, and customer satisfaction.</p>
+  <p>Our mission is to make plumbing services accessible and affordable, ensuring that every home and business can maintain its infrastructure without hassle or delay.</p>
+  <p>We pride ourselves on our strong relationships with trusted plumbers and our commitment to transparent pricing and professional service.</p>
+</section>
+
+<section id="services">
+  <h2>Our Plumbing Services</h2>
+  <ul class="services-list">
+    <li>Emergency Leak Repairs</li>
+    <li>Drain Cleaning and Maintenance</li>
+    <li>Water Heater Installation & Repair</li>
+    <li>Pipe Replacement & Repiping</li>
+    <li>Bathroom and Kitchen Plumbing</li>
+    <li>Commercial Plumbing Services</li>
+    <li>Preventative Maintenance Programs</li>
+  </ul>
+</section>
+
+<section id="contact">
+  <h2>Contact Us</h2>
+  <form onsubmit="alert('Thanks for reaching out! We will get back to you shortly.'); return false;">
+    <label for="name">Full Name</label>
+    <input id="name" type="text" required />
+
+    <label for="email">Email Address</label>
+    <input id="email" type="email" required />
+
+    <label for="message">Message</label>
+    <textarea id="message" required></textarea>
+
+    <button type="submit">Send Message</button>
+  </form>
+</section>
+
+<script>
+  // Update active nav link on scroll
+  const sections = document.querySelectorAll('section');
+  const navLinks = document.querySelectorAll('nav a');
+
+  function onScroll() {
+    let scrollPos = window.scrollY + 150; // adjust offset for fixed header
+
+    sections.forEach((section) => {
+      if (
+        scrollPos >= section.offsetTop &&
+        scrollPos < section.offsetTop + section.offsetHeight
+      ) {
+        navLinks.forEach((link) => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + section.id) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }
+  window.addEventListener('scroll', onScroll);
