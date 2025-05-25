@@ -2,174 +2,261 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>NY Plumbing Network</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
   <script src="https://kit.fontawesome.com/a2e0e6e6c1.js" crossorigin="anonymous"></script>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    /* Reset and base */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
     body {
       font-family: 'Inter', sans-serif;
+      background: #fefefe;
+      color: #1a1a1a;
       line-height: 1.6;
-      background: #f9f9f9;
-      color: #111;
       scroll-behavior: smooth;
-      overflow-x: hidden;
     }
+    a {
+      color: #0077cc;
+      text-decoration: none;
+    }
+    a:hover {
+      color: #004a99;
+    }
+    /* Header */
     header {
-      background: #0d47a1;
+      background: #004a99;
+      padding: 15px 40px;
       color: white;
-      padding: 20px 40px;
       position: sticky;
       top: 0;
       z-index: 1000;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
-    header nav a {
-      margin: 0 15px;
-      color: white;
-      text-decoration: none;
+    header h2 {
+      font-weight: 800;
+      font-size: 1.6rem;
+      letter-spacing: 1px;
+    }
+    nav a {
+      margin-left: 20px;
       font-weight: 600;
-      transition: color 0.3s;
+      font-size: 1rem;
+      transition: color 0.3s ease;
     }
-    header nav a:hover {
-      color: #ffca28;
+    nav a:hover {
+      color: #ffb400;
     }
-
+    /* Hero */
     .hero {
-      position: relative;
-      height: 95vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      background: url('https://images.unsplash.com/photo-1614941323875-685e6debc5e5?auto=format&fit=crop&w=1500&q=80') no-repeat center center/cover;
+      background: linear-gradient(135deg, #0077cc 0%, #004a99 100%);
       color: white;
-    }
-    .hero-overlay {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0, 0, 0, 0.5);
-    }
-    .hero-content {
+      padding: 120px 20px 80px;
+      text-align: center;
       position: relative;
-      z-index: 2;
+    }
+    .hero svg {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+      fill: white;
+      opacity: 0.7;
     }
     .hero h1 {
-      font-size: 3.5rem;
-      margin-bottom: 20px;
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+      font-weight: 800;
     }
     .hero p {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       margin-bottom: 30px;
+      font-weight: 600;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
     }
-    .btn {
-      background: #ffca28;
-      color: #000;
-      padding: 14px 30px;
-      border-radius: 8px;
-      font-weight: bold;
-      text-decoration: none;
-      transition: all 0.3s;
+    .btn-primary {
+      background-color: #ffb400;
+      color: #004a99;
+      font-weight: 700;
+      padding: 15px 40px;
+      border-radius: 30px;
+      display: inline-block;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 5px 12px rgba(255,180,0,0.5);
     }
-    .btn:hover {
-      background: #ffc107;
+    .btn-primary:hover {
+      background-color: #ffa200;
+      box-shadow: 0 6px 15px rgba(255,160,0,0.7);
     }
-
-    .section {
-      padding: 80px 40px;
+    /* Sections */
+    section {
+      padding: 60px 20px;
+      max-width: 1100px;
+      margin: 0 auto;
     }
-    .section-title {
-      text-align: center;
-      font-size: 2.5rem;
+    h2.section-title {
+      font-weight: 700;
+      font-size: 2.2rem;
+      color: #004a99;
       margin-bottom: 50px;
-      color: #0d47a1;
+      text-align: center;
     }
-
-    .swiper {
-      width: 90%;
-      padding-top: 20px;
-      padding-bottom: 50px;
+    /* Businesses */
+    .business-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
+      gap: 30px;
     }
-    .swiper-slide {
+    .business-card {
       background: white;
       border-radius: 12px;
-      padding: 30px;
+      padding: 30px 25px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.07);
       text-align: center;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease;
+      cursor: default;
     }
-
-    .plans {
+    .business-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+    }
+    .business-icon {
+      font-size: 3rem;
+      color: #0077cc;
+      margin-bottom: 15px;
+    }
+    .business-card strong {
+      font-size: 1.25rem;
+      display: block;
+      margin-bottom: 5px;
+      color: #003366;
+    }
+    /* Plans */
+    .plans-grid {
       display: flex;
       justify-content: center;
-      flex-wrap: wrap;
       gap: 30px;
+      flex-wrap: wrap;
     }
     .plan {
       background: white;
       padding: 30px;
-      border-radius: 10px;
+      border-radius: 15px;
       width: 280px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
       text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-      transition: transform 0.3s;
+      transition: box-shadow 0.3s ease;
+      cursor: default;
     }
     .plan:hover {
-      transform: scale(1.05);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
     }
-
-    .testimonials {
-      display: flex;
-      justify-content: center;
+    .plan h3 {
+      font-weight: 700;
+      font-size: 1.5rem;
+      margin-bottom: 15px;
+      color: #004a99;
+    }
+    .plan p.price {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 15px;
+      color: #ffb400;
+    }
+    .plan p.features {
+      font-weight: 600;
+      color: #333;
+      line-height: 1.5;
+    }
+    /* Testimonials */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
       gap: 30px;
-      flex-wrap: wrap;
     }
     .testimonial {
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      width: 280px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      text-align: center;
+      background: white;
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      font-style: italic;
+      color: #444;
+      position: relative;
+      min-height: 130px;
     }
-
-    .contact form {
-      max-width: 600px;
-      margin: auto;
+    .testimonial:before {
+      content: "“";
+      font-size: 3.5rem;
+      position: absolute;
+      top: 10px;
+      left: 15px;
+      color: #ffb400;
+      opacity: 0.3;
+      font-family: serif;
+    }
+    .testimonial-footer {
+      margin-top: 15px;
+      font-weight: 700;
+      color: #004a99;
+      font-style: normal;
+      text-align: right;
+    }
+    /* Contact */
+    form.contact-form {
+      max-width: 550px;
+      margin: 0 auto;
       display: flex;
       flex-direction: column;
     }
-    .contact input, .contact textarea {
-      padding: 12px;
+    form.contact-form input,
+    form.contact-form textarea {
+      padding: 15px 18px;
       margin-bottom: 20px;
-      border-radius: 6px;
       border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      resize: vertical;
+      font-family: inherit;
     }
-    .contact button {
-      background: #1976d2;
+    form.contact-form button {
+      background: #0077cc;
       color: white;
-      padding: 12px;
+      font-weight: 700;
       border: none;
-      border-radius: 6px;
-      font-weight: bold;
+      border-radius: 30px;
+      padding: 15px;
+      font-size: 1.1rem;
       cursor: pointer;
+      transition: background-color 0.3s ease;
     }
-
+    form.contact-form button:hover {
+      background: #004a99;
+    }
+    /* Footer */
     footer {
-      background: #0d47a1;
+      background: #004a99;
       color: white;
-      padding: 30px 20px;
+      padding: 20px;
       text-align: center;
+      font-weight: 600;
+      font-size: 0.9rem;
     }
-
-    @media (max-width: 768px) {
-      .hero h1 { font-size: 2rem; }
-      .plans, .testimonials { flex-direction: column; align-items: center; }
+    /* Responsive */
+    @media (max-width: 600px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+      nav a {
+        font-size: 0.9rem;
+        margin-left: 10px;
+      }
     }
   </style>
 </head>
@@ -179,93 +266,40 @@
     <h2>NY Plumbing Network</h2>
     <nav>
       <a href="#businesses">Businesses</a>
-      <a href="#subscribe">Plans</a>
+      <a href="#plans">Plans</a>
       <a href="#testimonials">Reviews</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
 
-  <section class="hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-content" data-aos="zoom-in">
-      <h1>Find the Best Plumbers in New York</h1>
-      <p><span id="typed"></span></p>
-      <a href="#subscribe" class="btn">Join Now</a>
-    </div>
+  <section class="hero" data-aos="fade-up">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" role="img" focusable="false">
+      <path d="M48 16v16a8 8 0 0 1-16 0V16h16zm-6 6h-4v10a4 4 0 0 0 8 0V22zM30 32a10 10 0 1 0 20 0v-8h4v8a14 14 0 1 1-28 0v-8h4zM18 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z" />
+    </svg>
+    <h1>Find the Best Plumbers in New York</h1>
+    <p>Fast, Reliable, Affordable Plumbing Services at Your Fingertips</p>
+    <a href="#plans" class="btn-primary">Join Now</a>
   </section>
 
-  <section id="businesses" class="section">
-    <h2 class="section-title" data-aos="fade-up">Top NY Plumbing Businesses</h2>
-    <div class="swiper mySwiper" data-aos="fade-up">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide">🚿 <strong>Blue Pipe Pros</strong><br>Brooklyn Emergency Services</div>
-        <div class="swiper-slide">🛠️ <strong>Queens Flush Masters</strong><br>Fast + Affordable</div>
-        <div class="swiper-slide">🚰 <strong>Manhattan Pipeworks</strong><br>Upscale Installations</div>
-        <div class="swiper-slide">💧 <strong>Bronx Flow Control</strong><br>24/7 Available</div>
+  <section id="businesses" data-aos="fade-up">
+    <h2 class="section-title">Top NY Plumbing Businesses</h2>
+    <div class="business-grid">
+      <div class="business-card">
+        <div class="business-icon"><i class="fas fa-shower"></i></div>
+        <strong>Blue Pipe Pros</strong>
+        <p>Brooklyn Emergency Services</p>
       </div>
-    </div>
-  </section>
-
-  <section id="subscribe" class="section" style="background: #e3f2fd;">
-    <h2 class="section-title" data-aos="fade-up">Choose Your Plan</h2>
-    <div class="plans">
-      <div class="plan" data-aos="flip-left">
-        <h3>Starter</h3>
-        <p>$49/month</p>
-        <p>1 Listing<br>5 Leads</p>
+      <div class="business-card">
+        <div class="business-icon"><i class="fas fa-tools"></i></div>
+        <strong>Queens Flush Masters</strong>
+        <p>Fast + Affordable</p>
       </div>
-      <div class="plan" data-aos="flip-left" data-aos-delay="200">
-        <h3>Pro</h3>
-        <p>$99/month</p>
-        <p>3 Listings<br>15 Leads<br>Top Placement</p>
+      <div class="business-card">
+        <div class="business-icon"><i class="fas fa-tint"></i></div>
+        <strong>Manhattan Pipeworks</strong>
+        <p>Upscale Installations</p>
       </div>
-      <div class="plan" data-aos="flip-left" data-aos-delay="400">
-        <h3>Enterprise</h3>
-        <p>$199/month</p>
-        <p>Unlimited Listings<br>Unlimited Leads<br>Custom Branding</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="testimonials" class="section">
-    <h2 class="section-title" data-aos="fade-up">What Businesses Say</h2>
-    <div class="testimonials">
-      <div class="testimonial" data-aos="fade-up">
-        “Since joining, I get 3X more calls!”<br>— Joe @ Queens Flush
-      </div>
-      <div class="testimonial" data-aos="fade-up" data-aos-delay="200">
-        “I filled my schedule in one week.”<br>— Lisa @ Brooklyn Plumbing
-      </div>
-    </div>
-  </section>
-
-  <section id="contact" class="section">
-    <h2 class="section-title" data-aos="fade-up">Contact Us</h2>
-    <form class="contact" data-aos="fade-up" data-aos-delay="100">
-      <input type="text" placeholder="Your Name" required />
-      <input type="email" placeholder="Email Address" required />
-      <textarea rows="5" placeholder="Your Message"></textarea>
-      <button type="submit">Send Message</button>
-    </form>
-  </section>
-
-  <footer>
-    <p>&copy; 2025 NY Plumbing Network</p>
-  </footer>
-
-  <!-- Scripts -->
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-  <script>
-    AOS.init();
-    const swiper = new Swiper(".mySwiper", {
-      slidesPerView: 1,
-      spaceBetween: 30,
-      loop: true,
-      autoplay: {
-        delay: 3000,
-        disableOnInteraction: false
-     
-::contentReference[oaicite:0]{index=0}
- 
+      <div class="business-card">
+        <div class="business-icon"><i class="fas fa-water"></i></div>
+        <strong>Bronx Flow Control</strong>
+        <p>24/7 Available
