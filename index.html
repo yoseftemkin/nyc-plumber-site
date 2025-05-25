@@ -4,15 +4,23 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>NY Plumbing Network</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <script src="https://kit.fontawesome.com/a2e0e6e6c1.js" crossorigin="anonymous"></script>
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
     body {
       font-family: 'Inter', sans-serif;
       line-height: 1.6;
       background: #f9f9f9;
       color: #111;
       scroll-behavior: smooth;
+      overflow-x: hidden;
     }
     header {
       background: #0d47a1;
@@ -36,99 +44,168 @@
     header nav a:hover {
       color: #ffca28;
     }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo img {
+      height: 40px;
+      width: auto;
+    }
     .hero {
-      height: 90vh;
+      position: relative;
+      height: 95vh;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 0 20px;
-      background: linear-gradient(135deg, #1976d2, #64b5f6);
+      background: url('https://images.unsplash.com/photo-1614941323875-685e6debc5e5?auto=format&fit=crop&w=1500&q=80') no-repeat center center/cover;
       color: white;
     }
+    .hero-overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 700px;
+      padding: 0 20px;
+    }
     .hero h1 {
-      font-size: 3rem;
+      font-size: 3.5rem;
       margin-bottom: 20px;
-      animation: slideIn 1s ease-out;
     }
     .hero p {
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       margin-bottom: 30px;
-      animation: fadeIn 1.8s ease-out;
+      min-height: 36px;
     }
     .btn {
       background: #ffca28;
       color: #000;
-      padding: 12px 28px;
+      padding: 14px 30px;
       border-radius: 8px;
       font-weight: bold;
       text-decoration: none;
       transition: all 0.3s;
+      display: inline-block;
     }
     .btn:hover {
       background: #ffc107;
     }
-
-    section {
+    .section {
       padding: 80px 40px;
     }
     .section-title {
       text-align: center;
-      font-size: 2.2rem;
+      font-size: 2.5rem;
       margin-bottom: 50px;
       color: #0d47a1;
     }
-    .businesses {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
+    .swiper {
+      width: 90%;
+      padding-top: 20px;
+      padding-bottom: 50px;
+      margin: 0 auto;
     }
-    .card {
+    .swiper-slide {
       background: white;
       border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.07);
-      transition: transform 0.3s;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-    }
-
-    .subscribe {
-      background: #e3f2fd;
+      padding: 30px;
       text-align: center;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+    .swiper-slide i {
+      font-size: 2rem;
+      color: #0d47a1;
     }
     .plans {
       display: flex;
       justify-content: center;
-      gap: 30px;
-      margin-top: 40px;
       flex-wrap: wrap;
+      gap: 30px;
     }
     .plan {
       background: white;
       padding: 30px;
       border-radius: 10px;
-      width: 250px;
+      width: 280px;
+      text-align: center;
       box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s;
+      position: relative;
+    }
+    .plan:hover {
+      transform: scale(1.05);
     }
     .plan h3 {
       margin-bottom: 10px;
+      font-weight: 800;
+      color: #0d47a1;
     }
-
-    .contact form {
+    .plan p {
+      font-size: 1.1rem;
+      margin-bottom: 15px;
+      color: #444;
+    }
+    .testimonials {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+    .testimonial {
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 280px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+      position: relative;
+    }
+    .testimonial img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 12px;
+      border: 2px solid #0d47a1;
+    }
+    .testimonial p {
+      font-style: italic;
+      margin-bottom: 8px;
+    }
+    .testimonial strong {
+      display: block;
+      color: #0d47a1;
+    }
+    .contact form,
+    .registration form,
+    .login form {
       max-width: 600px;
       margin: auto;
       display: flex;
       flex-direction: column;
+      gap: 15px;
     }
-    .contact input, .contact textarea {
+    .contact input, .contact textarea,
+    .registration input, .registration textarea,
+    .login input {
       padding: 12px;
-      margin-bottom: 20px;
       border-radius: 6px;
       border: 1px solid #ccc;
+      font-size: 1rem;
     }
-    .contact button {
+    .contact button,
+    .registration button,
+    .login button {
       background: #1976d2;
       color: white;
       padding: 12px;
@@ -136,109 +213,119 @@
       border-radius: 6px;
       font-weight: bold;
       cursor: pointer;
+      transition: background-color 0.3s;
     }
-
+    .contact button:hover,
+    .registration button:hover,
+    .login button:hover {
+      background: #115293;
+    }
     footer {
       background: #0d47a1;
       color: white;
       padding: 30px 20px;
       text-align: center;
     }
-
-    @keyframes slideIn {
-      from { transform: translateY(-40px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
     @media (max-width: 768px) {
-      .hero h1 { font-size: 2rem; }
-      .plans { flex-direction: column; align-items: center; }
+      .hero h1 {
+        font-size: 2rem;
+      }
+      .plans,
+      .testimonials {
+        flex-direction: column;
+        align-items: center;
+      }
+      header {
+        flex-wrap: wrap;
+      }
     }
   </style>
 </head>
 <body>
-
   <header>
-    <h2>NY Plumbing Network</h2>
+    <div class="logo">
+      <img src="https://cdn-icons-png.flaticon.com/512/456/456212.png" alt="NY Plumbing Logo" />
+      <h2>NY Plumbing Network</h2>
+    </div>
     <nav>
       <a href="#businesses">Businesses</a>
-      <a href="#about">About</a>
-      <a href="#subscribe">Subscribe</a>
+      <a href="#subscribe">Plans</a>
+      <a href="#testimonials">Reviews</a>
+      <a href="#register">Register</a>
+      <a href="#login">Login</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
 
   <section class="hero">
-    <div>
-      <h1>Connect with Top NY Plumbers</h1>
-      <p>Helping plumbers grow through visibility and local lead generation.</p>
-      <a href="#subscribe" class="btn">Join the Network</a>
+    <div class="hero-overlay"></div>
+    <div class="hero-content" data-aos="zoom-in">
+      <h1>Find the Best Plumbers in New York</h1>
+      <p><span id="typed"></span></p>
+      <a href="#subscribe" class="btn">Join Now</a>
     </div>
   </section>
 
-  <section id="businesses">
-    <h2 class="section-title">Featured Businesses</h2>
-    <div class="businesses">
-      <div class="card">
-        <h3>Blue Pipe Pros</h3>
-        <p>Reliable plumbing services in Brooklyn. Emergency 24/7 support.</p>
-      </div>
-      <div class="card">
-        <h3>Queens Flush Masters</h3>
-        <p>Fast, affordable plumbing across Queens & Long Island.</p>
-      </div>
-      <div class="card">
-        <h3>Manhattan Pipeworks</h3>
-        <p>Licensed pros specializing in upscale installations and repairs.</p>
+  <section id="businesses" class="section">
+    <h2 class="section-title" data-aos="fade-up">Top NY Plumbing Businesses</h2>
+    <div class="swiper mySwiper" data-aos="fade-up">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <i class="fas fa-shower"></i>
+          <strong>Blue Pipe Pros</strong><br>Brooklyn Emergency Services
+        </div>
+        <div class="swiper-slide">
+          <i class="fas fa-tools"></i>
+          <strong>Queens Flush Masters</strong><br>Fast + Affordable
+        </div>
+        <div class="swiper-slide">
+          <i class="fas fa-tint"></i>
+          <strong>Manhattan Pipeworks</strong><br>Upscale Installations
+        </div>
+        <div class="swiper-slide">
+          <i class="fas fa-water"></i>
+          <strong>Bronx Flow Control</strong><br>24/7 Available
+        </div>
       </div>
     </div>
   </section>
 
-  <section id="about">
-    <h2 class="section-title">About This Site</h2>
-    <p style="text-align: center; max-width: 700px; margin: auto;">
-      NY Plumbing Network is built to help local plumbing companies grow their business through lead generation, better visibility, and modern online exposure. This is the first of many location-based directories to help small service providers compete in the digital age.
-    </p>
-  </section>
-
-  <section id="subscribe" class="subscribe">
-    <h2 class="section-title">Subscription Plans</h2>
+  <section id="subscribe" class="section" style="background: #e3f2fd;">
+    <h2 class="section-title" data-aos="fade-up">Choose Your Plan</h2>
     <div class="plans">
-      <div class="plan">
+      <div class="plan" data-aos="flip-left">
         <h3>Starter</h3>
-        <p>$49/month</p>
-        <p>1 Featured Listing<br/>5 Leads/month</p>
+        <p><strong>$49/month</strong></p>
+        <p>1 Listing<br>5 Leads</p>
       </div>
-      <div class="plan">
+      <div class="plan" data-aos="flip-left" data-aos-delay="200">
         <h3>Pro</h3>
-        <p>$99/month</p>
-        <p>3 Listings<br/>15 Leads/month<br/>Priority Placement</p>
+        <p><strong>$99/month</strong></p>
+        <p>3 Listings<br>15 Leads<br>Top Placement</p>
       </div>
-      <div class="plan">
+      <div class="plan" data-aos="flip-left" data-aos-delay="400">
         <h3>Enterprise</h3>
-        <p>$199/month</p>
-        <p>Unlimited Listings<br/>Unlimited Leads<br/>Custom Branding</p>
+        <p><strong>$199/month</strong></p>
+        <p>Unlimited Listings<br>Unlimited Leads<br>Custom Branding</p>
       </div>
     </div>
   </section>
 
-  <section id="contact" class="contact">
-    <h2 class="section-title">Contact Us</h2>
-    <form>
-      <input type="text" placeholder="Your Name" required />
-      <input type="email" placeholder="Email Address" required />
-      <textarea rows="5" placeholder="Your Message"></textarea>
-      <button type="submit">Send Message</button>
-    </form>
+  <section id="testimonials" class="section">
+    <h2 class="section-title" data-aos="fade-up">What Businesses Say</h2>
+    <div class="testimonials">
+      <div class="testimonial" data-aos="fade-up">
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Joe @ Queens Flush" />
+        <p>“Since joining, I get 3X more calls!”</p>
+        <strong>— Joe @ Queens Flush</strong>
+      </div>
+      <div class="testimonial" data-aos="fade-up" data-aos-delay="200">
+        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Lisa @ Brooklyn Plumbing" />
+        <p>“I filled my schedule in one week.”</p>
+        <strong>— Lisa @ Brooklyn Plumbing</strong>
+      </div>
+    </div>
   </section>
 
-  <footer>
-    <p>&copy; 2025 NY Plumbing Network — Built for local growth.</p>
-  </footer>
-
-</body>
-</html>
+  <section id="register" class="section" style="background: #fafafa;">
+    <h2 class="section-title" data-aos="
