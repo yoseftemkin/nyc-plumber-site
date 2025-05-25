@@ -1,43 +1,65 @@
+Got it! You want **one single HTML file** that contains **all the pages together**, each page on its own "section" or "div," and the navigation switches between them **without loading new pages** — so basically a **single-page application (SPA)** but all in one HTML file.
+
+---
+
+### What this means:
+
+* One `.html` file only.
+* Each “page” is a `<section>` or `<div>` with a unique id.
+* Navigation buttons switch which section is visible, hiding the others.
+* No page reloads, everything is embedded.
+* All CSS and JS included inside this file.
+* Smooth user experience like real multi-page site but technically one page.
+
+---
+
+### I’ll prepare a minimal example for you with these 5 pages inside one HTML:
+
+* Home
+* Businesses
+* Plans
+* Testimonials
+* Contact
+
+---
+
+### Here’s the full single HTML file with embedded CSS + JS + navigation:
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>NY Plumbing Network</title>
+  <title>NY Plumbing Network - Single Page</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
-  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
   <script src="https://kit.fontawesome.com/a2e0e6e6c1.js" crossorigin="anonymous"></script>
   <style>
     /* Reset and base */
-    * {
-      margin: 0; padding: 0; box-sizing: border-box;
-    }
+    * { margin:0; padding:0; box-sizing: border-box;}
     body {
       font-family: 'Inter', sans-serif;
-      background: #fefefe;
-      color: #1a1a1a;
-      line-height: 1.6;
-      scroll-behavior: smooth;
+      background:#fefefe;
+      color:#1a1a1a;
+      line-height:1.6;
     }
     a {
-      color: #0077cc;
-      text-decoration: none;
+      color:#0077cc;
+      text-decoration:none;
+      cursor:pointer;
     }
-    a:hover {
-      color: #004a99;
-    }
-    /* Header */
+    a:hover { color:#004a99; }
     header {
-      background: #004a99;
-      padding: 15px 40px;
-      color: white;
+      background:#004a99;
+      color:#fff;
+      padding:15px 40px;
       position: sticky;
-      top: 0;
-      z-index: 1000;
-      display: flex;
+      top:0;
+      display:flex;
       justify-content: space-between;
       align-items: center;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      box-shadow:0 4px 10px rgba(0,0,0,0.1);
+      z-index: 1000;
     }
     header h2 {
       font-weight: 800;
@@ -50,16 +72,30 @@
       font-size: 1rem;
       transition: color 0.3s ease;
     }
-    nav a:hover {
+    nav a.active {
       color: #ffb400;
+      font-weight: 700;
+      border-bottom: 2px solid #ffb400;
+      padding-bottom: 3px;
+    }
+    main > section {
+      display: none;
+      padding: 60px 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+      min-height: 70vh;
+    }
+    main > section.active {
+      display: block;
     }
     /* Hero */
     .hero {
       background: linear-gradient(135deg, #0077cc 0%, #004a99 100%);
       color: white;
-      padding: 120px 20px 80px;
+      padding: 80px 20px;
       text-align: center;
-      position: relative;
+      border-radius: 12px;
+      margin-bottom: 60px;
     }
     .hero svg {
       width: 80px;
@@ -90,25 +126,13 @@
       display: inline-block;
       transition: background-color 0.3s ease;
       box-shadow: 0 5px 12px rgba(255,180,0,0.5);
+      cursor: pointer;
     }
     .btn-primary:hover {
       background-color: #ffa200;
       box-shadow: 0 6px 15px rgba(255,160,0,0.7);
     }
-    /* Sections */
-    section {
-      padding: 60px 20px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    h2.section-title {
-      font-weight: 700;
-      font-size: 2.2rem;
-      color: #004a99;
-      margin-bottom: 50px;
-      text-align: center;
-    }
-    /* Businesses */
+    /* Business Cards */
     .business-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
@@ -247,59 +271,35 @@
       text-align: center;
       font-weight: 600;
       font-size: 0.9rem;
+      margin-top: 60px;
     }
-    /* Responsive */
     @media (max-width: 600px) {
-      .hero h1 {
-        font-size: 2rem;
-      }
-      nav a {
-        font-size: 0.9rem;
-        margin-left: 10px;
-      }
+      .hero h1 { font-size: 2rem; }
+      nav a { font-size: 0.9rem; margin-left: 10px; }
+      .plans-grid { flex-direction: column; align-items: center; }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h2>NY Plumbing Network</h2>
-    <nav>
-      <a href="#businesses">Businesses</a>
-      <a href="#plans">Plans</a>
-      <a href="#testimonials">Reviews</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+<header>
+  <h2>NY Plumbing Network</h2>
+  <nav>
+    <a href="#" data-page="home" class="active">Home</a>
+    <a href="#" data-page="businesses">Businesses</a>
+    <a href="#" data-page="plans">Plans</a>
+    <a href="#" data-page="testimonials">Reviews</a>
+    <a href="#" data-page="contact">Contact</a>
+  </nav>
+</header>
 
-  <section class="hero" data-aos="fade-up">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-hidden="true" role="img" focusable="false">
-      <path d="M48 16v16a8 8 0 0 1-16 0V16h16zm-6 6h-4v10a4 4 0 0 0 8 0V22zM30 32a10 10 0 1 0 20 0v-8h4v8a14 14 0 1 1-28 0v-8h4zM18 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z" />
-    </svg>
-    <h1>Find the Best Plumbers in New York</h1>
-    <p>Fast, Reliable, Affordable Plumbing Services at Your Fingertips</p>
-    <a href="#plans" class="btn-primary">Join Now</a>
-  </section>
+<main>
 
-  <section id="businesses" data-aos="fade-up">
-    <h2 class="section-title">Top NY Plumbing Businesses</h2>
-    <div class="business-grid">
-      <div class="business-card">
-        <div class="business-icon"><i class="fas fa-shower"></i></div>
-        <strong>Blue Pipe Pros</strong>
-        <p>Brooklyn Emergency Services</p>
-      </div>
-      <div class="business-card">
-        <div class="business-icon"><i class="fas fa-tools"></i></div>
-        <strong>Queens Flush Masters</strong>
-        <p>Fast + Affordable</p>
-      </div>
-      <div class="business-card">
-        <div class="business-icon"><i class="fas fa-tint"></i></div>
-        <strong>Manhattan Pipeworks</strong>
-        <p>Upscale Installations</p>
-      </div>
-      <div class="business-card">
-        <div class="business-icon"><i class="fas fa-water"></i></div>
-        <strong>Bronx Flow Control</strong>
-        <p>24/7 Available
+  <!-- Home Section -->
+  <section id="home" class="active">
+    <div class="hero" role="banner">
+      <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" style="margin:auto; display:block; max-width:80px; fill:#fff; opacity:0.7;">
+        <path d="M48 16v16a8 8 0 0 1-16 0V16h16zm-6 6h-4v10a4 4 0 0 0 8 0V22zM30 32a10 10 0 1 0 20 0v-8h4v8a14 14 0 1 1-28 0v-8h4zM18 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0z" />
+      </svg>
+      <h1>
+```
