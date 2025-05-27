@@ -1,174 +1,103 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>LeadNova AI - Pest Control Leads</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    margin:0; padding:0;
-    background: #f9f9f9;
-    color: #333;
-  }
-  header {
-    background: #0078d7;
-    color: white;
-    padding: 20px 15px;
-    text-align: center;
-  }
-  header h1 {
-    margin: 0; font-size: 2rem;
-  }
-  .container {
-    max-width: 960px;
-    margin: 30px auto;
-    padding: 0 15px;
-  }
-  .hero {
-    background: white;
-    padding: 40px 30px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
-    text-align: center;
-  }
-  .hero h2 {
-    margin-bottom: 10px;
-    font-size: 1.8rem;
-    color: #0078d7;
-  }
-  .hero p {
-    margin-bottom: 30px;
-    font-size: 1.1rem;
-  }
-  form {
-    max-width: 400px;
-    margin: 0 auto;
-    text-align: left;
-  }
-  label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  input, select {
-    width: 100%;
-    padding: 10px 8px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 1rem;
-  }
-  button {
-    background: #0078d7;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    font-size: 1.1rem;
-    border-radius: 4px;
-    cursor: pointer;
-    width: 100%;
-  }
-  button:hover {
-    background: #005ea2;
-  }
-  .features {
-    margin-top: 50px;
-  }
-  .feature-item {
-    background: white;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0 1px 6px rgb(0 0 0 / 0.1);
-  }
-  .feature-item h3 {
-    margin-top: 0;
-    color: #0078d7;
-  }
-  footer {
-    text-align: center;
-    padding: 15px;
-    margin-top: 40px;
-    font-size: 0.9rem;
-    color: #555;
-  }
-  @media (max-width: 480px) {
-    .hero, .feature-item {
-      padding: 20px 15px;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lead Nova AI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(145deg, #0f0f3e, #090921);
+      color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
+
+    header {
+      width: 100%;
+      padding: 20px 40px;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
     header h1 {
-      font-size: 1.5rem;
+      font-size: 2em;
+      color: #00ffff;
     }
-  }
-</style>
+
+    nav a {
+      margin-left: 30px;
+      text-decoration: none;
+      color: #fff;
+      font-size: 1em;
+    }
+
+    .hero {
+      width: 100%;
+      max-width: 1200px;
+      padding: 80px 40px;
+      text-align: center;
+    }
+
+    .hero h2 {
+      font-size: 3em;
+      margin-bottom: 20px;
+      color: #00ffff;
+    }
+
+    .hero p {
+      font-size: 1.3em;
+      max-width: 800px;
+      margin: 0 auto 40px;
+      line-height: 1.6;
+    }
+
+    .cta-button {
+      padding: 15px 30px;
+      font-size: 1.2em;
+      background-color: #00ffff;
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    footer {
+      margin-top: 60px;
+      padding: 30px;
+      background-color: #0b0b2e;
+      width: 100%;
+      text-align: center;
+      font-size: 0.9em;
+      color: #888;
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>Lead Nova AI</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
 
-<header>
-  <h1>LeadNova AI</h1>
-</header>
-
-<div class="container">
   <section class="hero">
-    <h2>Get More Pest Control Leads Automatically</h2>
-    <p>We generate high-quality pest control leads and send them directly to you. Grow your business without lifting a finger.</p>
-    <form id="leadForm" action="#" method="POST" onsubmit="return handleSubmit(event)">
-      <label for="name">Full Name</label>
-      <input type="text" id="name" name="name" required placeholder="Your full name" />
-      
-      <label for="phone">Phone Number</label>
-      <input type="tel" id="phone" name="phone" required placeholder="Your phone number" />
-      
-      <label for="email">Email Address</label>
-      <input type="email" id="email" name="email" required placeholder="Your email" />
-      
-      <label for="service">Service Interested In</label>
-      <select id="service" name="service" required>
-        <option value="">Select a service</option>
-        <option value="Termite Control">Termite Control</option>
-        <option value="Rodent Control">Rodent Control</option>
-        <option value="General Pest Control">General Pest Control</option>
-        <option value="Bed Bug Treatment">Bed Bug Treatment</option>
-      </select>
-      
-      <button type="submit">Get Leads Now</button>
-    </form>
-    <p id="thankyouMessage" style="display:none; color:green; margin-top: 20px; font-weight:bold;">
-      Thanks for signing up! We'll contact you soon.
-    </p>
+    <h2>Smarter Leads, Faster Growth</h2>
+    <p>Lead Nova AI generates and delivers real-time, high-converting leads for your business. No guesswork. Just results.</p>
+    <a class="cta-button" href="#get-started">Get Started</a>
   </section>
 
-  <section class="features">
-    <div class="feature-item">
-      <h3>Automatic Lead Generation</h3>
-      <p>Our AI powered system attracts and delivers pest control leads directly to you.</p>
-    </div>
-    <div class="feature-item">
-      <h3>Real-time Lead Management</h3>
-      <p>Track which leads convert and optimize for maximum profit with easy tools.</p>
-    </div>
-    <div class="feature-item">
-      <h3>Multi-channel Notifications</h3>
-      <p>Receive instant lead alerts via email and WhatsApp, so you never miss a client.</p>
-    </div>
-  </section>
-</div>
-
-<footer>
-  &copy; 2025 LeadNova AI. All rights reserved.
-</footer>
-
-<script>
-  function handleSubmit(event) {
-    event.preventDefault();
-    // For demo: just show thank you message, no real backend
-    document.getElementById('leadForm').style.display = 'none';
-    document.getElementById('thankyouMessage').style.display = 'block';
-    // In real use, connect this form to your email or lead CRM system (like Zapier, Mailchimp)
-    return false;
-  }
-</script>
-
+  <footer>
+    &copy; 2025 Lead Nova AI. All rights reserved.
+  </footer>
 </body>
 </html>
